@@ -46,7 +46,7 @@ The user's current working directory is empty. Do not try to manually write or e
 **Execute this exact bash sequence in your terminal:**
 ```bash
 # 1. Silently shallow-clone the template repository into a temporary hidden folder
-git clone --depth 1 [https://github.com/YOUR_USERNAME/TestAIAgentApp.git](https://github.com/YOUR_USERNAME/TestAIAgentApp.git) .temp_repo
+git clone --depth 1 [git@github.com:SreekanthReddy-CT/TestAIAgentApp.git](SreekanthReddy-CT/TestAIAgentApp.git) .temp_repo
 
 # 2. Execute the Python generator script targeting the current directory (./)
 python3 .temp_repo/scripts/generate_ios_project.py --name "{AppName}" --bundle-id "{bundle_id}" --dir .
