@@ -53,6 +53,7 @@ python3 .temp_repo/scripts/generate_ios_project.py --name "{AppName}" --bundle-i
 
 # 3. Clean up the temporary repository
 rm -rf .temp_repo
+```
 
 ## Step 6 — Verification (After Script)
 Once the terminal commands complete successfully, perform a final check to ensure a perfect setup:
