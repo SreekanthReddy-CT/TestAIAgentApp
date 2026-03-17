@@ -40,25 +40,23 @@ Type "yes" or "go" to start generation, or let me know if you'd like to change a
 ## Step 4 — Save the Spec
 Once the user confirms, immediately create a file at `./spec.md` (in the current directory) containing the finalized App Name, Bundle ID, and Architecture.
 
-## Step 5 — Generate the Project (Run Script)
-This repository includes an automated generator script that performs Steps 5.1–5.8. The AI agent MUST NOT manually edit or create project files for Step 5. Instead, run the Python generator script in the repository root:
+## Step 5 — Generate the Project
+The user's current working directory is empty. Do not try to manually write or edit Xcode files. You MUST use your terminal tool to execute the following commands exactly as written. This will securely download the template, run the generator script, and clean up the workspace.
 
+**Execute this exact bash sequence in your terminal:**
 ```bash
-./scripts/prepare_ios_base_project.py --name {AppName} --bundle-id {bundle_id} --dir {projectPath}
-```
+# 1. Silently shallow-clone the template repository into a temporary hidden folder
+git clone --depth 1 [https://github.com/YOUR_USERNAME/TestAIAgentApp.git](https://github.com/YOUR_USERNAME/TestAIAgentApp.git) .temp_repo
 
-Requirements for the agent when executing Step 5:
-- Execute the script in the repository root (so relative paths resolve).
-- Capture and surface the script's stdout/stderr and exit code to the user.
-- If the script exits non-zero, present the script output and stop; do NOT attempt manual fixes.
-- If the script succeeds, proceed to Step 6 verification (the script also performs verification, but the agent should confirm success and report any remaining checks).
+# 2. Execute the Python generator script targeting the current directory (./)
+python3 .temp_repo/scripts/generate_ios_project.py --name "{AppName}" --bundle-id "{bundle_id}" --dir .
 
-### Script semantics
-- The script will copy the template contents, perform ordered replacements (BaseTemplateApp → FINAL_STRUCT_NAME, then BaseTemplate → AppName), rename files/folders, apply bundle identifier from `spec.md`, and verify there are no remaining `BaseTemplate` strings.
-- The script creates backups during merge and will not leave the target directory in a partially-updated state on failure.
+# 3. Clean up the temporary repository
+rm -rf .temp_repo
 
 ## Step 6 — Verification (After Script)
-After the script completes successfully, verify:
-1. `grep "BaseTemplate" ./{AppName}.xcodeproj/project.pbxproj` returns no matches.
-2. The App entry file is correctly named `{FINAL_APP_STRUCT_NAME}.swift` and contains `struct {FINAL_APP_STRUCT_NAME}: App`.
-3. Inform the user the project is ready, or surface any script-reported errors.
+Once the terminal commands complete successfully, perform a final check to ensure a perfect setup:
+1. **Cleanup Check:** Ensure the `.temp_repo` folder has been fully deleted from the workspace.
+2. **Structure Check:** Confirm that `{AppName}.xcodeproj` and the newly named source folders exist directly in the current directory.
+3. **Content Check:** (The Python script runs its own internal `grep` checks, but verify visually) The App entry file is correctly named `{FINAL_APP_STRUCT_NAME}.swift` and contains `struct {FINAL_APP_STRUCT_NAME}: App`.
+4. Inform the user the project is ready! If the Python script failed or reported any warnings, surface those errors to the user immediately.
