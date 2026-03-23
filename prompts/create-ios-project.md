@@ -22,8 +22,8 @@ Use the `AskQuestion` tool to sequentially ask the user the following questions 
 1. **Bundle ID:** Use the `AskQuestion` tool to ask: "What is your Bundle identifier? (e.g., com.company.app). You can type it, or I can use com.company.{AppName} as a default."
 2. **Architecture:** Use the `AskQuestion` tool to ask: "Which architecture pattern would you like? Choose between: 1) MVVM + Builder + Router (recommended), 2) VIPER, or 3) Clean Architecture."
 
-## Step 3 — Spec Summary & User Confirmation (Use AskQuestion Tool)
-After receiving all answers, use the `AskQuestion` tool to display the full spec summary and ask for final confirmation. Use this exact text for the question prompt:
+## Step 3 — Spec Summary & User Confirmation
+After receiving all answers, display the full spec summary and ask for final confirmation. Use this exact text for the question prompt:
 
 ```text
 Here's your project spec — ready to generate?
